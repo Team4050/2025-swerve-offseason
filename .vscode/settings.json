@@ -1,0 +1,46 @@
+{
+  // WPILib Java settings
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.server.launchMode": "Standard",
+  "java.test.defaultConfig": "WPIlibUnitTests",
+  "java.test.config": [
+    {
+      "name": "WPIlibUnitTests",
+      "workingDirectory": "${workspaceFolder}/build/jni/release",
+      "vmargs": ["-Djava.library.path=${workspaceFolder}/build/jni/release"],
+      "env": {
+        "LD_LIBRARY_PATH": "${workspaceFolder}/build/jni/release",
+        "DYLD_LIBRARY_PATH": "${workspaceFolder}/build/jni/release"
+      }
+    }
+  ],
+
+  // Formatting
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "java.format.enabled": false,
+  "files.trimTrailingWhitespace": false,
+  "[java][groovy][gradle]": {
+    "spotlessGradle.diagnostics.enable": true,
+    "spotlessGradle.format.enable": true,
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.spotlessGradle": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // Themeing
+  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.colorCustomizations": {
+    "activityBarBadge.background": "#16A34A",
+    "activityBarBadge.foreground": "#171717",
+    "statusBarItem.remoteBackground": "#16A34A",
+    "statusBarItem.remoteForeground": "#171717",
+    "button.background": "#16A34A",
+    "button.foreground": "#171717",
+    "focusBorder": "#16A34A",
+    "textLink.activeForeground": "#16A34A"
+  }
+}
