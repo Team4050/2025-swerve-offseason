@@ -1,7 +1,7 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2025.3.2"
-    id "com.diffplug.spotless" version "7.2.1"
+    id "com.diffplug.spotless" version "6.25.0"
 }
 
 java {
@@ -125,7 +125,7 @@ spotless {
             exclude "**/build/**", "**/build-*/**"
         }
         greclipse()
-        leadingTabsToSpaces(4)
+        indentWithSpaces(4)
         trimTrailingWhitespace()
         endWithNewline()
     }
@@ -135,8 +135,8 @@ spotless {
             exclude "**/build/**", "**/build-*/**"
         }
         eclipseWtp("xml")
+        indentWithSpaces(2)
         trimTrailingWhitespace()
-        leadingTabsToSpaces(2)
         endWithNewline()
     }
     format "misc", {
@@ -144,8 +144,8 @@ spotless {
             include "**/*.md", "**/.gitignore"
             exclude "**/build/**", "**/build-*/**"
         }
+        indentWithSpaces(2)
         trimTrailingWhitespace()
-        leadingTabsToSpaces(2)
         endWithNewline()
     }
 }

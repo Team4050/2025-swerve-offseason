@@ -21,14 +21,20 @@
   "editor.tabSize": 2,
   "java.format.enabled": false,
   "files.trimTrailingWhitespace": false,
-  "[java][groovy][gradle]": {
-    "spotlessGradle.diagnostics.enable": true,
-    "spotlessGradle.format.enable": true,
-    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.spotlessGradle": "explicit",
-      "source.organizeImports": "explicit"
-    }
+  "spotlessGradle.diagnostics.enable": true,
+  "spotlessGradle.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.spotlessGradle": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[java]": {
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
+  },
+  "[groovy]": {
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
+  },
+  "[gradle]": {
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
   },
 
   // Themeing
