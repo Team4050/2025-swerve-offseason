@@ -18,14 +18,15 @@
   // Formatting
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.tabSize": 2,
+  "editor.tabSize": 4,
   "java.format.enabled": false,
   "files.trimTrailingWhitespace": false,
-  "spotlessGradle.diagnostics.enable": true,
+  "spotlessGradle.diagnostics.enable": false,
   "spotlessGradle.format.enable": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.spotlessGradle": "explicit",
-    "source.organizeImports": "explicit"
+    "source.fixAll.spotlessGradle": "explicit"
+    // TODO: Maybe keep this disabled?
+    // "source.organizeImports": ""
   },
   "[java]": {
     "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
