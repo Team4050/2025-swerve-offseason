@@ -2,7 +2,6 @@
   "recommendations": [
     "aaron-bond.better-comments",
     "esbenp.prettier-vscode",
-    "ms-vscode.cpptools",
     "redhat.java",
     "richardwillis.vscode-spotless-gradle",
     "vscjava.vscode-java-pack"
