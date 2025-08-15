@@ -7,46 +7,43 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 public class TeleopDrive extends Command {
-  private final Drivetrain driveSubsystem;
-  private final DoubleSupplier xSupplier;
-  private final DoubleSupplier ySupplier;
-  private final DoubleSupplier rotationSupplier;
-  private final BooleanSupplier fieldOrientedSupplier;
+    private final Drivetrain driveSubsystem;
+    private final DoubleSupplier xSupplier;
+    private final DoubleSupplier ySupplier;
+    private final DoubleSupplier rotationSupplier;
+    private final BooleanSupplier fieldOrientedSupplier;
 
-  public TeleopDrive(
-      Drivetrain driveSubsystem,
-      DoubleSupplier xSupplier,
-      DoubleSupplier ySupplier,
-      DoubleSupplier rotationSupplier,
-      BooleanSupplier fieldOrientedSupplier) {
-    this.driveSubsystem = driveSubsystem;
-    this.xSupplier = xSupplier;
-    this.ySupplier = ySupplier;
-    this.rotationSupplier = rotationSupplier;
-    this.fieldOrientedSupplier = fieldOrientedSupplier;
+    public TeleopDrive(
+            Drivetrain driveSubsystem,
+            DoubleSupplier xSupplier,
+            DoubleSupplier ySupplier,
+            DoubleSupplier rotationSupplier,
+            BooleanSupplier fieldOrientedSupplier) {
+        this.driveSubsystem = driveSubsystem;
+        this.xSupplier = xSupplier;
+        this.ySupplier = ySupplier;
+        this.rotationSupplier = rotationSupplier;
+        this.fieldOrientedSupplier = fieldOrientedSupplier;
 
-    addRequirements(driveSubsystem);
-  }
+        addRequirements(driveSubsystem);
+    }
 
-  @Override
-  public void execute() {
-    // Get controller inputs
-    double xInput = xSupplier.getAsDouble();
-    double yInput = ySupplier.getAsDouble();
-    double rotationInput = rotationSupplier.getAsDouble();
-    boolean fieldOriented = fieldOrientedSupplier.getAsBoolean();
+    @Override
+    public void execute() {
+        double xInput = xSupplier.getAsDouble();
+        double yInput = ySupplier.getAsDouble();
+        double rotationInput = rotationSupplier.getAsDouble();
+        boolean fieldOriented = fieldOrientedSupplier.getAsBoolean();
 
-    // Apply speed scaling (50% as requested)
-    double xVelocity = xInput * Constants.Drivetrain.MAX_SPEED_MPS;
-    double yVelocity = yInput * Constants.Drivetrain.MAX_SPEED_MPS;
-    double rotationalVelocity = rotationInput * Constants.Drivetrain.MAX_ANGULAR_SPEED_RPS;
+        double xVelocity = xInput * Constants.Drivetrain.MAX_SPEED_MPS;
+        double yVelocity = yInput * Constants.Drivetrain.MAX_SPEED_MPS;
+        double rotationalVelocity = rotationInput * Constants.Drivetrain.MAX_ANGULAR_SPEED_RPS;
 
-    // Drive the subsystem
-    driveSubsystem.drive(xVelocity, yVelocity, rotationalVelocity, fieldOriented);
-  }
+        driveSubsystem.drive(xVelocity, yVelocity, rotationalVelocity, fieldOriented);
+    }
 
-  @Override
-  public void end(boolean interrupted) {
-    driveSubsystem.stop();
-  }
+    @Override
+    public void end(boolean interrupted) {
+        driveSubsystem.stop();
+    }
 }

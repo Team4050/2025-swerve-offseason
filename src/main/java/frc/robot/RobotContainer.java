@@ -13,43 +13,45 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SwerveModule;
 
 public class RobotContainer {
-  private final HazardXbox driverController =
-      new HazardXbox(Constants.OI.DRIVER_CONTROLLER_PORT, Constants.OI.CONTROLLER_DEADZONE);
+    private final HazardXbox driverController =
+            new HazardXbox(Constants.OI.DRIVER_CONTROLLER_PORT, Constants.OI.CONTROLLER_DEADZONE);
 
-  private final Drivetrain drivetrain =
-      new Drivetrain(
-          new SwerveModule(
-              "FL",
-              Constants.Drivetrain.FL_DRIVE_ID,
-              Constants.Drivetrain.FL_STEER_ID,
-              Constants.Drivetrain.FL_ANGLE_ID,
-              Constants.Drivetrain.FL_OFFSET));
+    private final Drivetrain drivetrain =
+            Drivetrain.createSingle(
+                    new SwerveModule(
+                            "FL",
+                            Constants.Drivetrain.FL_DRIVE_ID,
+                            Constants.Drivetrain.FL_STEER_ID,
+                            Constants.Drivetrain.FL_ANGLE_ID,
+                            Constants.Drivetrain.FL_OFFSET));
 
-  public RobotContainer() {
-    configureBindings();
-    configureDefaultCommands();
-  }
+    public RobotContainer() {
+        configureBindings();
+        configureDefaultCommands();
+    }
 
-  private void configureBindings() {
-    // Reset pose
-    driverController.start().onTrue(new InstantCommand(() -> drivetrain.resetPose()));
+    private void configureBindings() {
+        // Reset pose
+        driverController.start().onTrue(new InstantCommand(() -> drivetrain.resetPose()));
 
-    // Reset steer encoder
-    driverController.back().onTrue(new InstantCommand(() -> drivetrain.resetSteerEncoders()));
-  }
+        // Reset steer encoder
+        driverController
+                .back()
+                .onTrue(new InstantCommand(() -> drivetrain.resetModuleSteerEncoders()));
+    }
 
-  private void configureDefaultCommands() {
-    drivetrain.setDefaultCommand(
-        new TeleopDrive(
-            drivetrain,
-            () -> -driverController.getLeftY(), // Forward/backward (inverted)
-            () -> -driverController.getLeftX(), // Left/right (inverted)
-            () -> -driverController.getRightX(), // Rotation (inverted)
-            () -> driverController.leftBumper().getAsBoolean() // Field-oriented toggle
-            ));
-  }
+    private void configureDefaultCommands() {
+        drivetrain.setDefaultCommand(
+                new TeleopDrive(
+                        drivetrain,
+                        () -> -driverController.getLeftY(), // Forward/backward (inverted)
+                        () -> -driverController.getLeftX(), // Left/right (inverted)
+                        () -> -driverController.getRightX(), // Rotation (inverted)
+                        () -> driverController.leftBumper().getAsBoolean() // Field-oriented toggle
+                        ));
+    }
 
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
-  }
+    public Command getAutonomousCommand() {
+        return Commands.print("No autonomous command configured");
+    }
 }
