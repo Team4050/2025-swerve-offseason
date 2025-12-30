@@ -28,20 +28,18 @@
 
 #### Coordinate Systems
 
-```
-Field Coordinate System (WPILib Standard):
-- Origin: Blue alliance right corner
-- X-axis: Toward red alliance (downfield)
-- Y-axis: Toward blue alliance left
-- Rotation: Counter-clockwise positive (CCW = +)
-
-     ↑ Y (Left)
-     |
-     |
-     └──→ X (Downfield)
-   (0,0)
-
-Robot always uses this field frame, regardless of alliance.
+```mermaid
+graph LR
+    subgraph Field["Field Coordinate System (WPILib Standard)"]
+        Origin["Origin (0,0)<br/>Blue alliance right corner"]
+        XAxis["X-axis →<br/>Toward red alliance (downfield)"]
+        YAxis["Y-axis ↑<br/>Toward blue alliance left"]
+        Rotation["Rotation: Counter-clockwise positive (CCW = +)"]
+    end
+    
+    Note["Robot always uses this field frame,<br/>regardless of alliance"]
+    
+    style Field fill:#e1f5ff
 ```
 
 #### Pose2d: Robot Position + Heading
@@ -925,25 +923,24 @@ public Command twoPieceAuto() {
 
 Use PathPlanner Autos (GUI-based):
 
-```
-In PathPlanner GUI > Autos tab:
-
-Create: "ComplexAuto"
-
-Sequence:
-1. StartToGamePiece1 (path)
-   └─ Marker "intake" at end
-2. Wait 0.5 seconds
-3. GamePiece1ToScore (path)
-   └─ Marker "shoot" at end
-4. ScoreToGamePiece2 (path)
-   └─ Marker "intake" at end
-5. Wait 0.5 seconds
-6. GamePiece2ToScore (path)
-   └─ Marker "shoot" at end
-7. Wait 1.0 seconds
-
-Save
+```mermaid
+graph TD
+    Start["ComplexAuto (In PathPlanner GUI > Autos tab)"]
+    Start --> P1["1. StartToGamePiece1 (path)"]
+    P1 --> M1["Marker: 'intake' at end"]
+    M1 --> W1["2. Wait 0.5 seconds"]
+    W1 --> P2["3. GamePiece1ToScore (path)"]
+    P2 --> M2["Marker: 'shoot' at end"]
+    M2 --> P3["4. ScoreToGamePiece2 (path)"]
+    P3 --> M3["Marker: 'intake' at end"]
+    M3 --> W2["5. Wait 0.5 seconds"]
+    W2 --> P4["6. GamePiece2ToScore (path)"]
+    P4 --> M4["Marker: 'shoot' at end"]
+    M4 --> W3["7. Wait 1.0 seconds"]
+    W3 --> End["Save"]
+    
+    style Start fill:#e1f5ff
+    style End fill:#e1ffe1
 ```
 
 **Load in code:**

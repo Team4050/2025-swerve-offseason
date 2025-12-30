@@ -26,21 +26,29 @@ A swerve drive system uses multiple **closed-loop controllers** (PID + Feedforwa
 
 Your robot has **three distinct control systems** that need tuning:
 
-```
-1. STEER MOTORS (Azimuth Control)
-   ├─> Controls wheel angle/direction
-   ├─> Uses: kP, kI, kD, kS, kV, kA
-   └─> Goal: Fast, accurate wheel pointing
-
-2. DRIVE MOTORS (Velocity Control)
-   ├─> Controls wheel speed
-   ├─> Uses: kP, kI, kD, kS, kV
-   └─> Goal: Accurate wheel velocity
-
-3. HEADING CONTROLLER (Rotation Control)
-   ├─> Controls robot rotation angle
-   ├─> Uses: kP, kI, kD
-   └─> Goal: Maintain or reach target heading
+```mermaid
+graph TD
+    subgraph STEER["1. STEER MOTORS (Azimuth Control)"]
+        S1["Controls wheel angle/direction"]
+        S2["Uses: kP, kI, kD, kS, kV, kA"]
+        S3["Goal: Fast, accurate wheel pointing"]
+    end
+    
+    subgraph DRIVE["2. DRIVE MOTORS (Velocity Control)"]
+        D1["Controls wheel speed"]
+        D2["Uses: kP, kI, kD, kS, kV"]
+        D3["Goal: Accurate wheel velocity"]
+    end
+    
+    subgraph HEADING["3. HEADING CONTROLLER (Rotation Control)"]
+        H1["Controls robot rotation angle"]
+        H2["Uses: kP, kI, kD"]
+        H3["Goal: Maintain or reach target heading"]
+    end
+    
+    style STEER fill:#e1f5ff
+    style DRIVE fill:#fff4e1
+    style HEADING fill:#e1ffe1
 ```
 
 ### Why Tuning Matters
