@@ -36,9 +36,9 @@ graph LR
         YAxis["Y-axis ↑<br/>Toward blue alliance left"]
         Rotation["Rotation: Counter-clockwise positive (CCW = +)"]
     end
-    
+
     Note["Robot always uses this field frame,<br/>regardless of alliance"]
-    
+
     style Field fill:#e1f5ff
 ```
 
@@ -938,7 +938,7 @@ graph TD
     P4 --> M4["Marker: 'shoot' at end"]
     M4 --> W3["7. Wait 1.0 seconds"]
     W3 --> End["Save"]
-    
+
     style Start fill:#e1f5ff
     style End fill:#e1ffe1
 ```

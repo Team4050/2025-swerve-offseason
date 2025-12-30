@@ -256,7 +256,7 @@ public void autonomousInit() {
 // Check: Does heading change when robot is stationary?
 
 // Short-term fix: Reset heading between matches
-// Long-term fix: Mount Pigeon more rigidly, check for vibration
+// Long-term fix: Mount Pigeon 2.0 more rigidly, check for vibration
 ```
 
 ---

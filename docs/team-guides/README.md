@@ -2,9 +2,47 @@
 
 Welcome to the comprehensive documentation for our CTRE Phoenix 6 swerve drive system! This documentation is designed to help our team members understand, tune, troubleshoot, and optimize our robot's drivetrain.
 
-## 📚 Documentation Overview
+## � New to Swerve? Start Here!
 
-This suite consists of five comprehensive guides, each focusing on a specific aspect of swerve drive development:
+**[📖 Getting Started Guide: From Generated Code to Driving Robot](./0-getting-started-guide.md)**
+
+This blog-style tutorial walks you through the complete journey from Phoenix Tuner X generated code to a competition-ready swerve drive. Perfect for:
+
+- First-time swerve developers
+- Teams wanting a practical, step-by-step walkthrough
+- Quick onboarding of new programmers
+- Understanding the big picture before diving into details
+
+**Start here if you:** Just generated code from Tuner X and want to know what to do next!
+
+---
+
+## �📚 Documentation Overview
+
+This suite consists of six comprehensive guides, each focusing on a specific aspect of swerve drive development:
+
+### 0️⃣ [Getting Started Guide](./0-getting-started-guide.md) ⭐ NEW!
+
+**Purpose:** Practical walkthrough from generated code to operational robot
+
+**Topics Covered:**
+
+- First deploy and basic driving setup
+- Hardware verification and calibration
+- Quick tuning for immediate results
+- Setting up autonomous with PathPlanner
+- Adding telemetry and logging
+- Pre-competition checklist
+- Common gotchas and fixes
+
+**When to Use:**
+
+- You just generated code and need to know what's next
+- Onboarding new programmers
+- Quick reference for the essential steps
+- Preparing for first practice or competition
+
+---
 
 ### 1️⃣ [System Architecture](./1-system-architecture.md)
 
@@ -125,11 +163,16 @@ This suite consists of five comprehensive guides, each focusing on a specific as
 
 ## 🚀 Getting Started
 
+### For First-Time Swerve Setup:
+
+**👉 Start with [Getting Started Guide](./0-getting-started-guide.md)** - This practical walkthrough takes you from Phoenix Tuner X generated code all the way to a competition-ready robot. Follow it step-by-step!
+
 ### For New Team Members:
 
-1. Start with **[System Architecture](./1-system-architecture.md)** to understand the big picture
-2. Read **[Tuning Guide](./2-tuning-swerve-drive.md)** high-level sections for control theory background
-3. Keep **[Troubleshooting Guide](./5-troubleshooting.md)** bookmarked for when issues arise
+1. Start with **[Getting Started Guide](./0-getting-started-guide.md)** for the practical big picture
+2. Read **[System Architecture](./1-system-architecture.md)** to understand how everything fits together
+3. Skim **[Tuning Guide](./2-tuning-swerve-drive.md)** high-level sections for control theory background
+4. Keep **[Troubleshooting Guide](./5-troubleshooting.md)** bookmarked for when issues arise
 
 ### For Developers Adding Features:
 
@@ -139,10 +182,11 @@ This suite consists of five comprehensive guides, each focusing on a specific as
 
 ### For Competition Preparation:
 
-1. Use **[Tuning Guide](./2-tuning-swerve-drive.md)** → "Validation Tests" checklist
-2. Review **[Autonomous Guide](./3-autonomous-routines.md)** → "Competition Strategy"
-3. Implement features from **[Optimization Guide](./4-optimization-next-steps.md)** → "Competition-Ready Features"
-4. Have **[Troubleshooting Guide](./5-troubleshooting.md)** → "Emergency Procedures" ready
+1. Complete **[Getting Started Guide](./0-getting-started-guide.md)** → "Pre-Competition Checklist"
+2. Use **[Tuning Guide](./2-tuning-swerve-drive.md)** → "Validation Tests" checklist
+3. Review **[Autonomous Guide](./3-autonomous-routines.md)** → "Competition Strategy"
+4. Implement features from **[Optimization Guide](./4-optimization-next-steps.md)** → "Competition-Ready Features"
+5. Have **[Troubleshooting Guide](./5-troubleshooting.md)** → "Emergency Procedures" ready
 
 ---
 

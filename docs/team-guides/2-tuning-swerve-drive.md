@@ -33,19 +33,19 @@ graph TD
         S2["Uses: kP, kI, kD, kS, kV, kA"]
         S3["Goal: Fast, accurate wheel pointing"]
     end
-    
+
     subgraph DRIVE["2. DRIVE MOTORS (Velocity Control)"]
         D1["Controls wheel speed"]
         D2["Uses: kP, kI, kD, kS, kV"]
         D3["Goal: Accurate wheel velocity"]
     end
-    
+
     subgraph HEADING["3. HEADING CONTROLLER (Rotation Control)"]
         H1["Controls robot rotation angle"]
         H2["Uses: kP, kI, kD"]
         H3["Goal: Maintain or reach target heading"]
     end
-    
+
     style STEER fill:#e1f5ff
     style DRIVE fill:#fff4e1
     style HEADING fill:#e1ffe1
