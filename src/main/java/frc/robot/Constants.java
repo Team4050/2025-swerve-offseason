@@ -47,14 +47,10 @@ public final class Constants {
         public static final double TRACK_WIDTH = Units.inchesToMeters(20.0);
         public static final double WHEEL_BASE = Units.inchesToMeters(20.0); // Future 4-module use
 
-        public static final Translation2d FL_POSITION =
-                new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2);
-        public static final Translation2d FR_POSITION =
-                new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2);
-        public static final Translation2d BL_POSITION =
-                new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2);
-        public static final Translation2d BR_POSITION =
-                new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2);
+        public static final Translation2d FL_POSITION = new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2);
+        public static final Translation2d FR_POSITION = new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2);
+        public static final Translation2d BL_POSITION = new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2);
+        public static final Translation2d BR_POSITION = new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2);
 
         // Speed limits (50% as requested)
         public static final double MAX_SPEED_MPS = 2.5; // meters per second
