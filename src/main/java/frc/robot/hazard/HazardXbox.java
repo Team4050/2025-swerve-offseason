@@ -1,24 +1,25 @@
 package frc.robot.hazard;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class HazardXbox extends CommandXboxController {
 
-    private float deadzone = 0.08f;
+    private float deadband = 0.08f;
     private XboxController hid;
 
     /**
-     * Initializes a new Xbox controller with the specified port and deadzone
+     * Initializes a new Xbox controller with the specified port and deadband
      *
      * @param port USB port of the controller
-     * @param deadzone Deadzone (0 - 1)
+     * @param deadband Deadband (0 - 1)
      */
-    public HazardXbox(int port, float deadzone) {
+    public HazardXbox(int port, float deadband) {
         this(port);
 
-        this.deadzone = deadzone;
+        this.deadband = deadband;
         this.hid = super.getHID();
     }
 
@@ -64,48 +65,49 @@ public class HazardXbox extends CommandXboxController {
     /* The below code consists of overrides and new methods to apply deadzone */
 
     /**
-     * Returns the value of the axis after accounting for the configured deadzone
+     * Returns the value of the axis after accounting for the configured deadband
      *
+     * @param deadband The deadband to apply
      * @param v The value of the axis
-     * @return The value of the axis after accounting for deadzone
+     * @return The value of the axis after accounting for deadband
      */
-    private double deadzone(float deadzone, double v) {
-        return Math.abs(v) > deadzone ? v : 0;
+    private double deadband(float deadband, double v) {
+        return MathUtil.applyDeadband(deadband, v);
     }
 
     @Override
     public double getLeftX() {
-        return this.deadzone(this.deadzone, super.getLeftX());
+        return this.deadband(this.deadband, super.getLeftX());
     }
 
-    public double getLeftX(float deadzone) {
-        return this.deadzone(deadzone, super.getLeftX());
+    public double getLeftX(float deadband) {
+        return this.deadband(deadband, super.getLeftX());
     }
 
     @Override
     public double getLeftY() {
-        return this.deadzone(this.deadzone, super.getLeftY());
+        return this.deadband(this.deadband, super.getLeftY());
     }
 
-    public double getLeftY(float deadzone) {
-        return this.deadzone(deadzone, super.getLeftY());
+    public double getLeftY(float deadband) {
+        return this.deadband(deadband, super.getLeftY());
     }
 
     @Override
     public double getRightX() {
-        return this.deadzone(this.deadzone, super.getRightX());
+        return this.deadband(this.deadband, super.getRightX());
     }
 
-    public double getRightX(float deadzone) {
-        return this.deadzone(deadzone, super.getRightX());
+    public double getRightX(float deadband) {
+        return this.deadband(deadband, super.getRightX());
     }
 
     @Override
     public double getRightY() {
-        return this.deadzone(this.deadzone, super.getRightY());
+        return this.deadband(this.deadband, super.getRightY());
     }
 
-    public double getRightY(float deadzone) {
-        return this.deadzone(deadzone, super.getRightY());
+    public double getRightY(float deadband) {
+        return this.deadband(deadband, super.getRightY());
     }
 }
