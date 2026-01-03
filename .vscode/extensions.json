@@ -5,6 +5,7 @@
     "redhat.java",
     "richardwillis.vscode-spotless-gradle",
     "vscjava.vscode-java-pack",
-    "bierner.markdown-mermaid"
+    "bierner.markdown-mermaid",
+    "github.github-vscode-theme"
   ]
 }
