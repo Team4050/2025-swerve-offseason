@@ -10,6 +10,14 @@
         "header": {
           "open": true
         }
+      },
+      "window": {
+        "visible": false
+      }
+    },
+    "Timing": {
+      "window": {
+        "visible": false
       }
     }
   },
@@ -29,6 +37,7 @@
         "left": 534,
         "right": 3466,
         "top": 291,
+        "units": "feet",
         "width": 17.54825210571289,
         "window": {
           "visible": true
@@ -37,6 +46,12 @@
     }
   },
   "NetworkTables Info": {
+    "Server": {
+      "open": true
+    },
     "visible": true
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }
