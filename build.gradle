@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2026.1.1-beta-1"
+    id "edu.wpi.first.GradleRIO" version "2026.1.1"
     id "com.diffplug.spotless" version "6.25.0"
 }
 
@@ -106,6 +106,8 @@ wpi.java.configureTestTasks(test)
 tasks.withType(JavaCompile) {
     options.compilerArgs.add "-XDstringConcat=inline"
 }
+
+build.dependsOn spotlessApply
 
 spotless {
     java {
