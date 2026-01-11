@@ -11,11 +11,13 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
+import frc.robot.hazard.HazardXbox;
+import frc.robot.subsystems.AutoAimSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class RobotContainer {
     private double MaxSpeed =
@@ -28,16 +30,38 @@ public class RobotContainer {
             .withDeadband(MaxSpeed * 0.1)
             .withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
+    // Auto-aim driving request - uses built-in HeadingController
+    private final SwerveRequest.FieldCentricFacingAngle driveWithAutoAim = new SwerveRequest.FieldCentricFacingAngle()
+            .withDeadband(MaxSpeed * 0.1)
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    // Changed from CommandXboxController to HazardXbox for deadband support
+    private final HazardXbox joystick =
+            new HazardXbox(Constants.OI.DRIVER_CONTROLLER_PORT, Constants.OI.DRIVER_DEADBAND);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
+    // New subsystems
+    private final VisionSubsystem vision;
+    private final AutoAimSubsystem autoAim;
+
     public RobotContainer() {
+        // Instantiate subsystems
+        vision = new VisionSubsystem(drivetrain);
+        autoAim = new AutoAimSubsystem(drivetrain);
+
+        // Configure the HeadingController PID gains for FieldCentricFacingAngle
+        driveWithAutoAim.HeadingController.setPID(
+                FieldOverrides.getHeadingKP(), FieldOverrides.getHeadingKI(), FieldOverrides.getHeadingKD());
+        // Enable continuous input for heading (wraps around at +/- PI)
+        driveWithAutoAim.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
+
         configureBindings();
     }
 
@@ -46,14 +70,31 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
                 // Drivetrain will execute this command periodically
-                drivetrain.applyRequest(
-                        () -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y
-                                // (forward)
-                                .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X
-                                // (left)
-                                .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise
-                        // with negative X (left)
-                        ));
+                drivetrain.applyRequest(() -> {
+                    // Get driver inputs
+                    double velocityX = -joystick.getLeftY() * MaxSpeed;
+                    double velocityY = -joystick.getLeftX() * MaxSpeed;
+                    double driverRotation = joystick.getRightX();
+
+                    // Check for manual rotation override (any rotation input after deadband = override)
+                    if (driverRotation != 0) {
+                        autoAim.disableFromManualInput();
+                    }
+
+                    // Choose request based on auto-aim state
+                    if (autoAim.isActivelyAiming()) {
+                        // Use FieldCentricFacingAngle with calculated target
+                        return driveWithAutoAim
+                                .withVelocityX(velocityX)
+                                .withVelocityY(velocityY)
+                                .withTargetDirection(autoAim.getTargetAngle().plus(Rotation2d.k180deg));
+                    } else {
+                        // Use normal FieldCentric with driver rotation
+                        return drive.withVelocityX(velocityX)
+                                .withVelocityY(velocityY)
+                                .withRotationalRate(-driverRotation * MaxAngularRate);
+                    }
+                }));
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
@@ -73,8 +114,16 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
-        // Reset the field-centric heading on left bumper press.
-        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        // Reset the field-centric heading on Start + Back combo (moved from Left Bumper)
+        joystick.start().and(joystick.back()).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+
+        // Left Bumper: Toggle auto-aim on/off
+        joystick.leftBumper().onTrue(Commands.runOnce(() -> autoAim.toggleEnabled()));
+
+        // Left Trigger: One-press aim (tap = aim once, hold = continuous)
+        joystick.leftTrigger()
+                .onTrue(Commands.runOnce(() -> autoAim.startOnePressAim()))
+                .onFalse(Commands.runOnce(() -> autoAim.endOnePressAim()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
