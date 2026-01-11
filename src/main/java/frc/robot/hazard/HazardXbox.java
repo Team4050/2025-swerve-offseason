@@ -72,7 +72,7 @@ public class HazardXbox extends CommandXboxController {
      * @return The value of the axis after accounting for deadband
      */
     private double deadband(float deadband, double v) {
-        return MathUtil.applyDeadband(deadband, v);
+        return MathUtil.applyDeadband(v, deadband);
     }
 
     @Override
@@ -109,5 +109,23 @@ public class HazardXbox extends CommandXboxController {
 
     public double getRightY(float deadband) {
         return this.deadband(deadband, super.getRightY());
+    }
+
+    @Override
+    public double getLeftTriggerAxis() {
+        return this.deadband(this.deadband, super.getLeftTriggerAxis());
+    }
+
+    public double getLeftTriggerAxis(float deadband) {
+        return this.deadband(deadband, super.getLeftTriggerAxis());
+    }
+
+    @Override
+    public double getRightTriggerAxis() {
+        return this.deadband(this.deadband, super.getRightTriggerAxis());
+    }
+
+    public double getRightTriggerAxis(float deadband) {
+        return this.deadband(deadband, super.getRightTriggerAxis());
     }
 }
