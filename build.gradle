@@ -129,7 +129,7 @@ task installGitHook(type: Copy){
     }
 }
 
-build.dependsOn spotlessApply installGitHook
+build.dependsOn "spotlessApply", "installGitHook"
 
 spotless {
     java {
