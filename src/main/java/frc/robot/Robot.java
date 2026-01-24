@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -69,18 +68,16 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 
-        //intake test
-        if (intakeJoystick.getRawButton(3)) {
-            intake.set(0.5);
+        // intake test
+        if (intakeJoystick.getRawButton(4)) {
+            intake.set(1);
             System.out.println("intake forward");
-        } else if (intakeJoystick.getRawButton(0)) {
-            intake.set(-0.5);
+        } else if (intakeJoystick.getRawButton(1)) {
+            intake.set(-1);
             System.out.println("intake reverse");
         } else {
             intake.set(0.0);
         }
-        
-
     }
 
     @Override
